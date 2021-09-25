@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_file
 from time import sleep, time, ctime
 from threading import Thread
 import requests
@@ -38,9 +38,10 @@ def index(place):
         thr.start()
         return 'started at ' + ctime(time())
 
-@app.route('/check')
-def check():
-    return requests.get('https://ya.ru').text
+
+@app.route('/get/<place>')
+def get(place):
+    return send_file(str(place)+'.ts')
 
 if __name__ == '__main__':
     app.run()
